@@ -135,7 +135,7 @@ FORMULARIO NORMAL
 
 <form method="post" id="imageForm">
 
-    <button class="btn btn-success" type="button" onclick="enviarFormulario()">Insertar Imagenes!</button> <!-- Cambiado para prevenir envío por defecto -->
+    <button class="btn btn-success" type="button" onclick="enviarFormulario()">Insertar Imagenes!</button> 
     <br />
     <label>Seleccione la zapatilla</label>
     <select name="idzapa" class="form-control">
@@ -150,7 +150,7 @@ FORMULARIO NORMAL
 
     <div id="inputsContainer">
         <label>Imagenes</label>
-        <input type="text" name="imagenes[0]" class="form-control" /> <!-- Cambiado el nombre del input principal -->
+        <input type="text" name="imagenes[0]" class="form-control" />
     </div>
 </form>
 
@@ -162,7 +162,7 @@ FORMULARIO NORMAL
             contadorInputs++;
             var nuevoInput = document.createElement('input');
             nuevoInput.type = 'text';
-            nuevoInput.name = 'imagenes[' + contadorInputs + ']'; // Modificado el nombre del input dinámico
+            nuevoInput.name = 'imagenes[' + contadorInputs + ']'; 
             nuevoInput.className = 'form-control';
             document.getElementById('inputsContainer').appendChild(nuevoInput);
         }
@@ -171,14 +171,13 @@ FORMULARIO NORMAL
             agregarNuevoInput();
         });
 
-        // Función para recopilar los valores de los inputs dinámicos y enviarlos con el formulario
         function enviarFormulario() {
             var form = document.getElementById('imageForm');
             var inputs = document.querySelectorAll('#inputsContainer input');
             inputs.forEach(function (input, index) {
-                input.name = 'imagenes[' + index + ']'; // Actualizar el nombre de los inputs dinámicos para la serialización correcta
+                input.name = 'imagenes[' + index + ']'; 
             });
-            form.submit(); // Enviar el formulario
+            form.submit();
         }
     </script>
 }
