@@ -7,7 +7,31 @@ using System.Data;
 namespace ExamenZapatillas.Repositories
 {
     #region procedures
-    /*CREATE PROCEDURE SP_IMAGEN_ZAPA
+    /*
+     * NO ESTAN USADOS TODOS PERO LOS PONGO POR SI ACASO
+
+CREATE VIEW V_ZAPAS_INDIVIDUAL
+AS
+	SELECT CAST(
+	ROW_NUMBER() OVER (ORDER BY Z.IDPRODUCTO) AS INT)
+	AS POSICION,
+	ISNULL(Z.IDPRODUCTO, 0) AS IDPRODUCTO, Z.NOMBRE,
+	Z.DESCRIPCION, Z.PRECIO, I.IDIMAGEN, I.IMAGEN
+	FROM ZAPASPRACTICA Z
+	INNER JOIN IMAGENESZAPASPRACTICA I
+	ON Z.IDPRODUCTO=I.IDPRODUCTO
+GO
+
+CREATE VIEW V_IMAGENES
+AS
+	SELECT CAST(
+	ROW_NUMBER() OVER (ORDER BY IDIMAGEN) AS INT)
+	AS POSICION,
+	ISNULL(IDIMAGEN,0)AS IDIMAGEN, IDPRODUCTO, IMAGEN
+	FROM IMAGENESZAPASPRACTICA
+GO
+     * 
+     * CREATE PROCEDURE SP_IMAGEN_ZAPA
 (@POSICION INT,
 @IDZAPA INT,
 @REGISTROS INT OUT)
@@ -23,7 +47,18 @@ AS
 	WHERE IDPRODUCTO = @IDZAPA ) AS QUERY
 	WHERE QUERY.POSICION = @POSICION
 
-GO*/
+GO
+    
+     CREATE PROCEDURE SP_INSERTAR_IMAGEN
+(@IDZAPA INT,
+@IMAGEN NVARCHAR(1200))
+AS
+	DECLARE @ID INT
+	SELECT @ID = MAX(IDIMAGEN)+1 FROM IMAGENESZAPASPRACTICA
+	INSERT INTO IMAGENESZAPASPRACTICA VALUES
+	(@ID, @IDZAPA,@IMAGEN)
+GO
+     */
     #endregion
     public class RepositoryZapatillas
     {
@@ -80,6 +115,17 @@ GO*/
             return model;
         }
 
+        
+        public async Task InsertarImagen(int idzapa, string imagen)
+        {
+            string sql = "SP_INSERTAR_IMAGEN @IDZAPA, @IMAGEN";
+
+            SqlParameter pamIdzapa = new SqlParameter("@IDZAPA", idzapa);
+            SqlParameter pamImagen = new SqlParameter("@IMAGEN", imagen);
+
+            this.context.Database.ExecuteSqlRaw(sql, pamIdzapa, pamImagen);
+
+        }
     }
 }
 

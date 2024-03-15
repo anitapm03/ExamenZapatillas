@@ -72,5 +72,26 @@ namespace ExamenZapatillas.Controllers
 
             return View(model.Imagen);
         }
+
+        public async Task<IActionResult> InsertarImagenes()
+        {
+            List<Zapatilla> zapas = await 
+                this.repoZapas.GetZapas();
+            return View(zapas);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> InsertarImagenes
+            (int idzapa, List<string> imagenes)
+            /*(int idzapa, string imagen)*/
+        {
+            //await this.repoZapas.InsertarImagen(idzapa, imagen);
+
+            foreach (string imagen in imagenes)
+            {
+                await this.repoZapas.InsertarImagen(idzapa, imagen);
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
