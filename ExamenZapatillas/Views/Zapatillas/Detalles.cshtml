@@ -1,0 +1,38 @@
+﻿@*@model ImagenZapatilla*@
+
+@{
+    Zapatilla zapa = ViewData["ZAPATILLASELECCIONADA"] as Zapatilla;
+}
+
+<h1>Zapatila:</h1>
+
+<div class="card">
+    <div class="card-header">
+        Nombre: @zapa.Nombre
+    </div>
+    <div class="card-body">
+        
+        <p class="card-text">@zapa.Descripcion</p>
+        
+    </div>
+
+    <div class="card-footer">
+       Precio: @zapa.Precio
+    </div>
+</div>
+
+
+
+<div id="contenido"></div>
+@section Scripts {
+    <script>
+        function loadImagenPaginacion(posicion) {
+            $(function () {
+                $("#contenido").load("/Zapatillas/_ImagenesPartial?posicion="
+                    + posicion + "&idzapa=" + @zapa.IdZapatilla);
+            });
+        }
+
+        loadImagenPaginacion(1);
+    </script>
+}

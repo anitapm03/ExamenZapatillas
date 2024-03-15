@@ -1,0 +1,65 @@
+﻿@model ImagenZapatilla
+
+@{
+    Zapatilla zapa = ViewData["ZAPATILLASELECCIONADA"] as Zapatilla;
+}
+
+@*aqui la patial*@
+<p>Imagen @ViewData["POSICION"] de @ViewData["ULTIMO"]</p>
+<ul class="list-group list-group-horizontal">
+    <li class="list-group-item">
+        @*<a asp-controller="Paginacion"
+           asp-action="PaginarZapatilla"
+           asp-route-posicion="1"
+           asp-route-idzapa="@ViewData["ZAPA"]">
+            Primero
+        </a>*@
+        <button onclick="loadImagenPaginacion(1)" class="btn">
+            Primero
+        </button>
+    </li>
+    <li class="list-group-item">
+        @*<a asp-controller="Paginacion"
+           asp-action="PaginarZapatilla"
+           asp-route-posicion="@ViewData["ANTERIOR"]"
+           asp-route-idzapa="@ViewData["ZAPA"]">
+            Anterior
+        </a>*@
+        <button onclick="loadImagenPaginacion(@ViewData["ANTERIOR"])" class="btn">
+            Anterior
+        </button>
+    </li>
+    <li class="list-group-item">
+        @*<a asp-controller="Paginacion"
+           asp-action="PaginarZapatilla"
+           asp-route-posicion="@ViewData["SIGUIENTE"]"
+           asp-route-idzapa="@ViewData["ZAPA"]">
+            Siguiente
+        </a>*@
+        <button onclick="loadImagenPaginacion(@ViewData["SIGUIENTE"])" class="btn">
+            Siguiente
+        </button>
+    </li>
+    <li class="list-group-item">
+        @*<a asp-controller="Paginacion"
+           asp-action="PaginarZapatilla"
+           asp-route-posicion="@ViewData["ULTIMO"]"
+           asp-route-idzapa="@ViewData["ZAPA"]">
+            Ultimo
+        </a>*@
+
+        <button onclick="loadImagenPaginacion(@ViewData["ULTIMO"])" class="btn">
+            Ultimo
+        </button>
+    </li>
+</ul>
+
+<div class="card" id="container">
+
+    <div class="card-body">
+
+        <img src="@Model.NombreImagen" style="width:100px; height:100px;"
+
+    </div>
+
+</div>
