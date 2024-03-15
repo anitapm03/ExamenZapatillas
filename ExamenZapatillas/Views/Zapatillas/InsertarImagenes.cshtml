@@ -1,4 +1,60 @@
-﻿@model List<Zapatilla>
+﻿@*model List<Zapatilla>
+
+<h1>Insertar nuevas imágenes:</h1>
+
+<button id="nuevoinput" class="btn btn-info">Añadir caja</button>
+<br /><br />
+
+<form method="post" id="imageForm">
+
+    <button class="btn btn-success">Insertar Imagenes!</button>
+    <br />
+    <label>Seleccione la zapatilla</label>
+    <select name="idzapa" class="form-control">
+        @foreach (Zapatilla zapa in Model)
+        {
+            <option value="@zapa.IdZapatilla">
+                @zapa.Nombre
+            </option>
+        }
+    </select>
+    <br />
+
+    <div id="inputsContainer">
+        <label>Imagenes</label>
+        <input type="text" name="imagenes[0]" class="form-control" /> <!-- Cambiado el nombre del input principal -->
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        var contadorInputs = 1;
+
+        function agregarNuevoInput() {
+            contadorInputs++;
+            var nuevoInput = document.createElement('input');
+            nuevoInput.type = 'text';
+            nuevoInput.name = 'imagenes[' + contadorInputs + ']'; // Modificado el nombre del input dinámico
+            nuevoInput.className = 'form-control';
+            document.getElementById('inputsContainer').appendChild(nuevoInput);
+        }
+
+        document.getElementById('nuevoinput').addEventListener('click', function () {
+            agregarNuevoInput();
+        });
+
+        // Función para recopilar los valores de los inputs dinámicos y enviarlos con el formulario
+        function enviarFormulario() {
+            var form = document.getElementById('imageForm');
+            var inputs = document.querySelectorAll('#inputsContainer input');
+            inputs.forEach(function (input, index) {
+                input.name = 'imagenes[' + index + ']'; // Actualizar el nombre de los inputs dinámicos para la serialización correcta
+            });
+            form.submit(); // Enviar el formulario
+        }
+    </script>
+}
+@model List<Zapatilla>
 
 <h1>Insertar nuevas imágenes:</h1>
 
@@ -44,7 +100,7 @@
         });
     </script>
 }
-@*
+
 FORMULARIO NORMAL
 <form method="post">
     <br />
@@ -66,3 +122,63 @@ FORMULARIO NORMAL
 
 
 </form>*@
+
+
+
+@model List<Zapatilla>
+
+<h1>Insertar nuevas imágenes:</h1>
+
+<button id="nuevoinput" class="btn btn-info">Añadir caja</button>
+<br />
+<br />
+
+<form method="post" id="imageForm">
+
+    <button class="btn btn-success" type="button" onclick="enviarFormulario()">Insertar Imagenes!</button> <!-- Cambiado para prevenir envío por defecto -->
+    <br />
+    <label>Seleccione la zapatilla</label>
+    <select name="idzapa" class="form-control">
+        @foreach (Zapatilla zapa in Model)
+        {
+            <option value="@zapa.IdZapatilla">
+                @zapa.Nombre
+            </option>
+        }
+    </select>
+    <br />
+
+    <div id="inputsContainer">
+        <label>Imagenes</label>
+        <input type="text" name="imagenes[0]" class="form-control" /> <!-- Cambiado el nombre del input principal -->
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        var contadorInputs = 1;
+
+        function agregarNuevoInput() {
+            contadorInputs++;
+            var nuevoInput = document.createElement('input');
+            nuevoInput.type = 'text';
+            nuevoInput.name = 'imagenes[' + contadorInputs + ']'; // Modificado el nombre del input dinámico
+            nuevoInput.className = 'form-control';
+            document.getElementById('inputsContainer').appendChild(nuevoInput);
+        }
+
+        document.getElementById('nuevoinput').addEventListener('click', function () {
+            agregarNuevoInput();
+        });
+
+        // Función para recopilar los valores de los inputs dinámicos y enviarlos con el formulario
+        function enviarFormulario() {
+            var form = document.getElementById('imageForm');
+            var inputs = document.querySelectorAll('#inputsContainer input');
+            inputs.forEach(function (input, index) {
+                input.name = 'imagenes[' + index + ']'; // Actualizar el nombre de los inputs dinámicos para la serialización correcta
+            });
+            form.submit(); // Enviar el formulario
+        }
+    </script>
+}
